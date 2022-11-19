@@ -23,6 +23,9 @@ class DatePicker extends StatefulWidget {
 
   /// Text color for the selected Date
   final Color selectedTextColor;
+  
+    /// Scrollcontroller for the Scrollbar always on Value
+  final ScrollController scrolcontroller;
 
   /// Background color for the selector
   final Color selectionColor;
@@ -73,6 +76,7 @@ class DatePicker extends StatefulWidget {
     this.selectionColor = AppColors.defaultSelectionColor,
     this.deactivatedColor = AppColors.defaultDeactivatedColor,
     this.initialSelectedDate,
+      this.scrolcontroller
     this.activeDates,
     this.inactiveDates,
     this.daysCount = 500,
@@ -90,7 +94,7 @@ class DatePicker extends StatefulWidget {
 class _DatePickerState extends State<DatePicker> {
   DateTime? _currentDate;
 
-  ScrollController _controller = ScrollController();
+  
 
   late final TextStyle selectedDateStyle;
   late final TextStyle selectedMonthStyle;
@@ -135,7 +139,7 @@ class _DatePickerState extends State<DatePicker> {
       child: ListView.builder(
         itemCount: widget.daysCount,
         scrollDirection: Axis.horizontal,
-        controller: _controller,
+        controller: widget.scrolcontroller,
         itemBuilder: (context, index) {
           // get the date object based on the index position
           // if widget.startDate is null then use the initialDateValue
