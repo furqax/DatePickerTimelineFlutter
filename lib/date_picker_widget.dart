@@ -47,6 +47,9 @@ class DatePicker extends StatefulWidget {
   /// All the dates defined in this List will be deactivated
   final List<DateTime>? inactiveDates;
 
+  final List<DateTime>? showRedColorondates;
+
+
   /// Contains the list of active dates.
   /// Only the dates in this list will be activated.
   final List<DateTime>? activeDates;
@@ -74,6 +77,7 @@ class DatePicker extends StatefulWidget {
     this.selectionColor = AppColors.defaultSelectionColor,
     this.deactivatedColor = AppColors.defaultDeactivatedColor,
     this.initialSelectedDate,
+    this.showRedColorondates,
     required this.scrolcontroller,
     this.activeDates,
     this.inactiveDates,
@@ -145,6 +149,7 @@ class _DatePickerState extends State<DatePicker> {
           date = DateTime(_date.year, _date.month, _date.day);
 
           bool isDeactivated = false;
+          bool isdateredcolor = false;
 
           // check if this date needs to be deactivated for only DeactivatedDates
           if (widget.inactiveDates != null) {
@@ -152,6 +157,19 @@ class _DatePickerState extends State<DatePicker> {
             for (DateTime inactiveDate in widget.inactiveDates!) {
               if (_compareDate(date, inactiveDate)) {
                 isDeactivated = true;
+                break;
+              }
+            }
+          }
+
+
+
+                // check if this date needs to be red coloured 
+          if (widget.showRedColorondates != null) {
+//            print("Inside Inactive dates.");
+            for (DateTime showRedColorondates in widget.showRedColorondates!) {
+              if (_compareDate(date, showRedColorondates)) {
+                isdateredcolor = true;
                 break;
               }
             }
@@ -193,6 +211,7 @@ class _DatePickerState extends State<DatePicker> {
                     : widget.dayTextStyle,
             width: widget.width,
             locale: widget.locale,
+            showredcolortextondates:isdateredcolor,
             selectionColor:
                 isSelected ? widget.selectionColor : Colors.transparent,
             onDateSelected: (selectedDate) {
