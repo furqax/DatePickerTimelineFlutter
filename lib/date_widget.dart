@@ -16,6 +16,7 @@ class DateWidget extends StatelessWidget {
   final Color selectionColor;
   final DateSelectionCallback? onDateSelected;
   final String? locale;
+  final bool? showredcolortextondates;
 
   DateWidget({
     required this.date,
@@ -23,6 +24,7 @@ class DateWidget extends StatelessWidget {
     required this.dayTextStyle,
     required this.dateTextStyle,
     required this.selectionColor,
+    this.showredcolortextondates = false,
     this.width,
     this.onDateSelected,
     this.locale,
@@ -36,7 +38,7 @@ class DateWidget extends StatelessWidget {
         margin: EdgeInsets.all(3.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          color: selectionColor,
+          color: showredcolortextondates ? Colors.red : selectionColor,
         ),
         child: Padding(
           padding: EdgeInsets.all(8),
@@ -44,11 +46,17 @@ class DateWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(new DateFormat("MMM", locale).format(date).toUpperCase(), // Month
+              Text(
+                  new DateFormat("MMM", locale)
+                      .format(date)
+                      .toUpperCase(), // Month
                   style: monthTextStyle),
               Text(date.day.toString(), // Date
                   style: dateTextStyle),
-              Text(new DateFormat("E", locale).format(date).toUpperCase(), // WeekDay
+              Text(
+                  new DateFormat("E", locale)
+                      .format(date)
+                      .toUpperCase(), // WeekDay
                   style: dayTextStyle)
             ],
           ),
