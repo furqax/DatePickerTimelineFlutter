@@ -61,7 +61,7 @@ class DatePicker extends StatefulWidget {
   /// Days are counted from the startDate
   final int daysCount;
 
-  final bool selectedColorinitial;
+  final bool ? selectedColorinitial;
 
 
   /// Locale for the calendar default: en_us
@@ -193,7 +193,7 @@ class _DatePickerState extends State<DatePicker> {
 
           // Check if this date is the one that is currently selected
           bool isSelected =
-              _currentDate != null ? _compareDate(date, _currentDate!) : selectedColorinitial ? true :  false;
+              _currentDate != null ? _compareDate(date, _currentDate!) : widget.selectedColorinitial! ? true :  false;
 
           // Return the Date Widget
           return DateWidget(
