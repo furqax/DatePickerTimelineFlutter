@@ -1,8 +1,8 @@
+
 import 'package:date_picker_timeline/date_widget.dart';
 import 'package:date_picker_timeline/extra/color.dart';
 import 'package:date_picker_timeline/extra/style.dart';
 import 'package:date_picker_timeline/gestures/tap.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class DatePicker extends StatefulWidget {
@@ -61,7 +61,7 @@ class DatePicker extends StatefulWidget {
   /// Days are counted from the startDate
   final int daysCount;
 
-  final bool ? selectedColorinitial;
+  final bool selectedColorinitial;
 
 
   /// Locale for the calendar default: en_us
@@ -83,7 +83,7 @@ class DatePicker extends StatefulWidget {
     this.showRedColorondates,
     required this.scrolcontroller,
     this.activeDates,
-    this.selectedColorinitial,
+    this.selectedColorinitial=false,
     this.inactiveDates,
     this.daysCount = 500,
     this.onDateChange,
@@ -193,7 +193,7 @@ class _DatePickerState extends State<DatePicker> {
 
           // Check if this date is the one that is currently selected
           bool isSelected =
-              _currentDate != null ? _compareDate(date, _currentDate!) : widget.selectedColorinitial! ? true :  false;
+              _currentDate != null ? _compareDate(date, _currentDate!) : false;
 
           // Return the Date Widget
           return DateWidget(
@@ -216,7 +216,7 @@ class _DatePickerState extends State<DatePicker> {
             width: widget.width,
             locale: widget.locale,
             showredcolortextondates:isdateredcolor,
-            selectionColor:
+            selectionColor: widget.selectedColorinitial  ?  widget.selectionColor : 
                 isSelected ? widget.selectionColor : Colors.transparent,
             onDateSelected: (selectedDate) {
               // Don't notify listener if date is deactivated
