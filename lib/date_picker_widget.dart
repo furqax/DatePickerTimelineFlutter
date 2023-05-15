@@ -23,7 +23,7 @@ class DatePicker extends StatefulWidget {
   final Color selectedTextColor;
 
   /// Scrollcontroller for the Scrollbar always on Value
-  final ScrollController scrolcontroller;
+  final ScrollController? scrolcontroller;
 
   /// Background color for the selector
   final Color selectionColor;
@@ -49,7 +49,6 @@ class DatePicker extends StatefulWidget {
 
   final List<DateTime>? showRedColorondates;
 
-
   /// Contains the list of active dates.
   /// Only the dates in this list will be activated.
   final List<DateTime>? activeDates;
@@ -62,7 +61,6 @@ class DatePicker extends StatefulWidget {
   final int daysCount;
 
   final bool selectedColorinitial;
-
 
   /// Locale for the calendar default: en_us
   final String locale;
@@ -81,9 +79,9 @@ class DatePicker extends StatefulWidget {
     this.deactivatedColor = AppColors.defaultDeactivatedColor,
     this.initialSelectedDate,
     this.showRedColorondates,
-    required this.scrolcontroller,
+    this.scrolcontroller,
     this.activeDates,
-    this.selectedColorinitial=false,
+    this.selectedColorinitial = false,
     this.inactiveDates,
     this.daysCount = 500,
     this.onDateChange,
@@ -166,9 +164,7 @@ class _DatePickerState extends State<DatePicker> {
             }
           }
 
-
-
-                // check if this date needs to be red coloured 
+          // check if this date needs to be red coloured
           if (widget.showRedColorondates != null) {
 //            print("Inside Inactive dates.");
             for (DateTime showRedColorondates in widget.showRedColorondates!) {
@@ -215,9 +211,12 @@ class _DatePickerState extends State<DatePicker> {
                     : widget.dayTextStyle,
             width: widget.width,
             locale: widget.locale,
-            showredcolortextondates:isdateredcolor,
-            selectionColor: widget.selectedColorinitial  ?  widget.selectionColor : 
-                isSelected ? widget.selectionColor : Colors.transparent,
+            showredcolortextondates: isdateredcolor,
+            selectionColor: widget.selectedColorinitial
+                ? widget.selectionColor
+                : isSelected
+                    ? widget.selectionColor
+                    : Colors.transparent,
             onDateSelected: (selectedDate) {
               // Don't notify listener if date is deactivated
               if (isDeactivated) return;
@@ -257,7 +256,7 @@ class DatePickerController {
         'DatePickerController is not attached to any DatePicker View.');
 
     // jump to the current Date
-    _datePickerState!.widget.scrolcontroller
+    _datePickerState!.widget.scrolcontroller!
         .jumpTo(_calculateDateOffset(_datePickerState!._currentDate!));
   }
 
@@ -268,7 +267,7 @@ class DatePickerController {
         'DatePickerController is not attached to any DatePicker View.');
 
     // animate to the current date
-    _datePickerState!.widget.scrolcontroller.animateTo(
+    _datePickerState!.widget.scrolcontroller!.animateTo(
         _calculateDateOffset(_datePickerState!._currentDate!),
         duration: duration,
         curve: curve);
@@ -281,7 +280,7 @@ class DatePickerController {
     assert(_datePickerState != null,
         'DatePickerController is not attached to any DatePicker View.');
 
-    _datePickerState!.widget.scrolcontroller.animateTo(
+    _datePickerState!.widget.scrolcontroller!.animateTo(
         _calculateDateOffset(date),
         duration: duration,
         curve: curve);
@@ -294,7 +293,7 @@ class DatePickerController {
     assert(_datePickerState != null,
         'DatePickerController is not attached to any DatePicker View.');
 
-    _datePickerState!.widget.scrolcontroller.animateTo(
+    _datePickerState!.widget.scrolcontroller!.animateTo(
         _calculateDateOffset(date),
         duration: duration,
         curve: curve);
